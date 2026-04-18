@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database Container
+  db:
+    image: postgres:13
+    container_name: portfolio_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: portfolio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Automatically initialize the database schemas
+      - ./backend/database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - portfolio_net
+
+  # 2. Node.js Backend API Container
+  api:
+    build: ./backend
+    container_name: portfolio_api
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORTFOLIO_DB_USER=postgres
+      - PORTFOLIO_DB_PASSWORD=rootpassword
+      - PORTFOLIO_DB_HOST=portfolio_db
+      - PORTFOLIO_DB_PORT=5432
+      - PORTFOLIO_DB_NAME=portfolio_db
+      - JWT_SECRET=your_super_secret_jwt_key_here
+      # If deploying to cloud, change this to your domain, or leave as wildcard
+      - CORS_ORIGIN=*
+    depends_on:
+      - db
+    # We mount an uploads folder as a volume so photos survive container restarts
+    volumes:
+      - backend_uploads:/app/uploads
+    networks:
+      - portfolio_net
+
+  # 3. React/Vite Frontend Web Server
+  web:
+    build: ./frontend
+    container_name: portfolio_web
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - portfolio_net
+
+networks:
+  portfolio_net:
+    driver: bridge
+
+volumes:
+  pgdata:
+  backend_uploads:
