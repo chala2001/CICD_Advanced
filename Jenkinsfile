@@ -7,6 +7,14 @@ pipeline {
 
     stages {
 
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
+                }
+            }
+        }
+
         stage('Build Backend Image') {
             steps {
                 dir('Personal_Web/backend') {
@@ -19,14 +27,6 @@ pipeline {
             steps {
                 dir('Personal_Web/frontend') {
                     sh 'docker build -t $DOCKERHUB_USERNAME/personal-frontend:latest .'
-                }
-            }
-        }
-
-        stage('Login to Docker Hub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh 'echo $PASS | docker login -u $USER --password-stdin'
                 }
             }
         }
