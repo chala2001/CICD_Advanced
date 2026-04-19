@@ -19,7 +19,7 @@ const Login = () => {
     setErrorMessage('');
 
     try {
-      const response = await axios.post('http://backend-service:5000/api/auth/login', formData);
+      const response = await axios.post('http://192.168.49.2:30007/api/auth/login', formData);
       
       // Save the JWT token to localStorage
       localStorage.setItem('adminToken', response.data.token);

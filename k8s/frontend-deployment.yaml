@@ -15,8 +15,10 @@ spec:
       containers:
         - name: frontend
           image: chalasamijaya/personal-frontend:latest
+          imagePullPolicy: Always   # 🔥 IMPORTANT
           ports:
             - containerPort: 80
+
 ---
 apiVersion: v1
 kind: Service

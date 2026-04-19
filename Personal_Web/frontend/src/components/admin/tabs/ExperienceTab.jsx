@@ -38,13 +38,13 @@ const ExperienceTab = ({ initialData, onUpdate }) => {
     try {
       if (currentExp.id) {
         // Update
-        const res = await axios.put(`http://backend-service:5000/api/admin/experience/${currentExp.id}`, currentExp, config);
+        const res = await axios.put(`http://192.168.49.2:30007/api/admin/experience/${currentExp.id}`, currentExp, config);
         const updatedExps = experiences.map(e => e.id === currentExp.id ? res.data : e);
         setExperiences(updatedExps);
         onUpdate('experience', updatedExps);
       } else {
         // Create
-        const res = await axios.post(`http://backend-service:5000/api/admin/experience`, currentExp, config);
+        const res = await axios.post(`http://192.168.49.2:30007/api/admin/experience`, currentExp, config);
         const newExps = [...experiences, res.data];
         setExperiences(newExps);
         onUpdate('experience', newExps);
@@ -61,7 +61,7 @@ const ExperienceTab = ({ initialData, onUpdate }) => {
     if (!window.confirm("Are you sure you want to delete this role?")) return;
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.delete(`http://backend-service:5000/api/admin/experience/${id}`, {
+      await axios.delete(`http://192.168.49.2:30007/api/admin/experience/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const filtered = experiences.filter(e => e.id !== id);

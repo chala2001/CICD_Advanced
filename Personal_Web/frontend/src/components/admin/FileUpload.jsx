@@ -45,7 +45,7 @@ const FileUpload = ({ label, currentFileUrl, onUploadSuccess, accept = "image/*"
         formData.append('file', file);
 
         try {
-            const response = await axios.post('http://backend-service:5000/api/upload', formData, {
+            const response = await axios.post('http://192.168.49.2:30007/api/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -74,7 +74,7 @@ const FileUpload = ({ label, currentFileUrl, onUploadSuccess, accept = "image/*"
                 <div className="mb-4 p-4 bg-gray-900 rounded-lg flex items-center justify-between border border-gray-700">
                     <div className="flex items-center space-x-4">
                         {isImage ? (
-                            <img src={`http://backend-service:5000${currentFileUrl}`} alt="Preview" className="h-16 w-16 object-cover rounded shadow-md border border-gray-700" />
+                            <img src={`http://192.168.49.2:30007${currentFileUrl}`} alt="Preview" className="h-16 w-16 object-cover rounded shadow-md border border-gray-700" />
                         ) : (
                             <div className="h-16 w-16 bg-gray-800 rounded flex items-center justify-center border border-gray-700">
                                 <FileIcon className="text-google-blue-500 w-8 h-8" />

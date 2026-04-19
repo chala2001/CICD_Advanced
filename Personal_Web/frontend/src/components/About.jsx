@@ -37,7 +37,7 @@ const About = ({ data }) => {
         <div className="hidden lg:flex items-center justify-center h-full">
           {data.profile_image ? (
               <img 
-                src={data.profile_image.startsWith('/') ? `http://backend-service:5000${data.profile_image}` : data.profile_image} 
+                src={data.profile_image.startsWith('/') ? `http://192.168.49.2:30007${data.profile_image}` : data.profile_image} 
                 alt="Profile" 
                 className="w-full max-w-md aspect-square rounded-2xl object-cover shadow-2xl border border-dark-700" 
               />

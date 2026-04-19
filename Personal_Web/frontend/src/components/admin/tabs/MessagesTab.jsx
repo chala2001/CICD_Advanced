@@ -13,7 +13,7 @@ const MessagesTab = () => {
   const fetchMessages = async () => {
     try {
        const token = localStorage.getItem('adminToken');
-       const response = await axios.get('http://backend-service:5000/api/admin/messages', {
+       const response = await axios.get('http://192.168.49.2:30007/api/admin/messages', {
          headers: { Authorization: `Bearer ${token}` }
        });
        setMessages(response.data);
@@ -29,7 +29,7 @@ const MessagesTab = () => {
     
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.delete(`http://backend-service:5000/api/admin/messages/${id}`, {
+      await axios.delete(`http://192.168.49.2:30007/api/admin/messages/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Remove from UI

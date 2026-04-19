@@ -39,7 +39,7 @@ const Hero = ({ data }) => {
           </a>
           
           <a 
-            href={data.cv_link?.startsWith('/') ? `http://backend-service:5000${data.cv_link}` : data.cv_link} 
+            href={data.cv_link?.startsWith('/') ? `http://192.168.49.2:30007${data.cv_link}` : data.cv_link} 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-200 border border-dark-600 hover:border-gray-500 px-8 py-3.5 rounded-lg font-medium transition-all"

@@ -27,7 +27,7 @@ const AboutTab = ({ initialData, onUpdate }) => {
       const payload = { story: formData.story, interests: interestsArray, profile_image: formData.profile_image };
       const token = localStorage.getItem('adminToken');
       
-      const response = await axios.put('http://backend-service:5000/api/admin/about', payload, {
+      const response = await axios.put('http://192.168.49.2:30007/api/admin/about', payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

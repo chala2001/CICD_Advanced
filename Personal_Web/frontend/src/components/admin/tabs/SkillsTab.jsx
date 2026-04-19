@@ -42,13 +42,13 @@ const SkillsTab = ({ initialData, onUpdate }) => {
     try {
       if (currentSkill.id) {
         // Update
-        const res = await axios.put(`http://backend-service:5000/api/admin/skills/${currentSkill.id}`, payload, config);
+        const res = await axios.put(`http://192.168.49.2:30007/api/admin/skills/${currentSkill.id}`, payload, config);
         const updatedSkills = skills.map(s => s.id === currentSkill.id ? res.data : s);
         setSkills(updatedSkills);
         onUpdate('skills', updatedSkills);
       } else {
         // Create
-        const res = await axios.post(`http://backend-service:5000/api/admin/skills`, payload, config);
+        const res = await axios.post(`http://192.168.49.2:30007/api/admin/skills`, payload, config);
         const newSkills = [...skills, res.data];
         setSkills(newSkills);
         onUpdate('skills', newSkills);
@@ -65,7 +65,7 @@ const SkillsTab = ({ initialData, onUpdate }) => {
     if (!window.confirm("Are you sure you want to delete this category?")) return;
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.delete(`http://backend-service:5000/api/admin/skills/${id}`, {
+      await axios.delete(`http://192.168.49.2:30007/api/admin/skills/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const filtered = skills.filter(s => s.id !== id);

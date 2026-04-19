@@ -44,13 +44,13 @@ const ProjectsTab = ({ initialData, onUpdate }) => {
     try {
       if (currentProject.id) {
         // Update
-        const res = await axios.put(`http://backend-service:5000/api/admin/projects/${currentProject.id}`, payload, config);
+        const res = await axios.put(`http://192.168.49.2:30007/api/admin/projects/${currentProject.id}`, payload, config);
         const updatedProjects = projects.map(p => p.id === currentProject.id ? res.data : p);
         setProjects(updatedProjects);
         onUpdate('projects', updatedProjects);
       } else {
         // Create
-        const res = await axios.post(`http://backend-service:5000/api/admin/projects`, payload, config);
+        const res = await axios.post(`http://192.168.49.2:30007/api/admin/projects`, payload, config);
         const newProjects = [...projects, res.data];
         setProjects(newProjects);
         onUpdate('projects', newProjects);
@@ -67,7 +67,7 @@ const ProjectsTab = ({ initialData, onUpdate }) => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
     try {
       const token = localStorage.getItem('adminToken');
-      await axios.delete(`http://backend-service:5000/api/admin/projects/${id}`, {
+      await axios.delete(`http://192.168.49.2:30007/api/admin/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const filtered = projects.filter(p => p.id !== id);

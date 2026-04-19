@@ -25,23 +25,28 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:15
+          image: postgres:13
           ports:
             - containerPort: 5432
           env:
-            - name: POSTGRES_DB
-              value: portfolio
             - name: POSTGRES_USER
-              value: admin
+              value: postgres
             - name: POSTGRES_PASSWORD
-              value: admin123
+              value: rootpassword
+            - name: POSTGRES_DB
+              value: portfolio_db
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgres-storage
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+            - name: init-sql
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc
+        - name: init-sql
+          configMap:
+            name: postgres-init-sql
 ---
 apiVersion: v1
 kind: Service

@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_USERNAME = 'chalasamijaya'
+        KUBECONFIG = '/var/jenkins_home/.kube/config'
     }
 
     stages {
@@ -31,21 +32,23 @@ pipeline {
             }
         }
 
-        stage('Push Backend Image') {
+        stage('Push Images') {
             steps {
-                sh 'docker push $DOCKERHUB_USERNAME/personal-backend:latest'
-            }
-        }
-
-        stage('Push Frontend Image') {
-            steps {
-                sh 'docker push $DOCKERHUB_USERNAME/personal-frontend:latest'
+                sh '''
+                docker push $DOCKERHUB_USERNAME/personal-backend:latest
+                docker push $DOCKERHUB_USERNAME/personal-frontend:latest
+                '''
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/'
+                sh '''
+                kubectl apply -f k8s/
+
+                kubectl rollout restart deployment backend
+                kubectl rollout restart deployment frontend
+                '''
             }
         }
 
