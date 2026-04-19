@@ -22,7 +22,7 @@ const Projects = ({ data }) => {
             <div className="md:w-5/12 relative overflow-hidden bg-dark-900 border-b md:border-b-0 md:border-r border-dark-700 flex items-center justify-center min-h-[250px] group-hover:bg-dark-800 transition-colors">
                {project.architecture_image ? (
                  <img 
-                    src={project.architecture_image.startsWith('/') ? `http://localhost:5000${project.architecture_image}` : project.architecture_image} 
+                    src={project.architecture_image.startsWith('/') ? `http://backend-service:5000${project.architecture_image}` : project.architecture_image} 
                     alt={`${project.title} Preview`}
                     className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                  />

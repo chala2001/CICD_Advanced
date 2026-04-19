@@ -21,7 +21,7 @@ const HeroTab = ({ initialData, onUpdate }) => {
     setStatus('loading');
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await axios.put('http://localhost:5000/api/admin/hero', formData, {
+      const response = await axios.put('http://backend-service:5000/api/admin/hero', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setStatus('success');

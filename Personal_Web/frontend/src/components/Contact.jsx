@@ -17,7 +17,7 @@ const Contact = ({ data }) => {
     
     try {
       // Send POST request to the backend API we built in Phase 1
-      await axios.post('http://localhost:5000/api/contact', formData);
+      await axios.post('http://backend-service:5000/api/contact', formData);
       setStatus('success');
       setFormData({ name: '', email: '', message: '' }); // Clear form
       

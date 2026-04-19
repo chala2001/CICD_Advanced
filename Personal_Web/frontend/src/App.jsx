@@ -34,7 +34,7 @@ const PortfolioView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/portfolio');
+        const response = await axios.get('http://backend-service:5000/api/portfolio');
         setPortfolioData(response.data);
         setLoading(false);
       } catch (err) {

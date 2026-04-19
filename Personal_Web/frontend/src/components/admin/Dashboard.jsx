@@ -27,7 +27,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // We use the public endpoint to load current data for the admin to see
-        const response = await axios.get('http://localhost:5000/api/portfolio');
+        const response = await axios.get('http://backend-service:5000/api/portfolio');
         setPortfolioData(response.data);
         setLoading(false);
       } catch (err) {
